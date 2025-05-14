@@ -1,0 +1,91 @@
+@startuml TaskFlow Use Case Diagram
+
+left to right direction
+
+' Заголовок
+title Діаграма випадків використання системи "TaskFlow"
+
+' Оформлення
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #e6f7ff
+  BorderColor #333
+  ArrowColor #333
+}
+skinparam actor {
+  BackgroundColor #f5f5f5
+  BorderColor #333
+}
+skinparam rectangle {
+  BackgroundColor #f5f5f5
+  BorderColor #333
+}
+
+' Границя системи
+rectangle "Система управління завданнями" {
+  ' Випадки використання - Управління користувачами та завданнями
+  usecase "Управління користувачами" as UC1
+  usecase "Керування завданнями" as UC2
+  usecase "Відстеження часу" as UC3
+  usecase "Колаборація та коментування" as UC4
+  
+  ' Випадки використання - Управління проектами
+  usecase "Управління проектами" as UC5
+  usecase "Керування робочими процесами" as UC6
+  usecase "Звітність та аналітика" as UC7
+  usecase "Налаштування системи" as UC8
+  
+  ' Випадки використання - Інтеграції та безпека
+  usecase "Інтеграція з зовнішніми системами" as UC9
+  usecase "Імпорт/експорт даних" as UC10
+  usecase "Резервне копіювання" as UC11
+  usecase "Авторизація та автентифікація" as UC12
+  usecase "Аудит та безпека" as UC13
+}
+
+' Актори
+actor "Користувач" as User
+actor "Менеджер проекту" as Manager
+actor "Адміністратор" as Admin
+rectangle "Поштова система" as MailSystem
+rectangle "Система календаря" as CalendarSystem
+rectangle "Система контролю версій" as VersionControlSystem
+
+' Відношення спадкування між акторами
+Manager --|> User
+Admin --|> Manager
+
+' Зв'язки користувача з випадками використання
+User --> UC2
+User --> UC3
+User --> UC4
+
+' Зв'язки менеджера проекту з випадками використання
+Manager --> UC5
+Manager --> UC6
+Manager --> UC7
+
+' Зв'язки адміністратора з випадками використання
+Admin --> UC1
+Admin --> UC8
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+
+' Відношення включення
+UC2 ..> UC3 : <<include>>
+UC5 ..> UC6 : <<include>>
+UC6 ..> UC7 : <<include>>
+UC8 ..> UC12 : <<include>>
+UC11 ..> UC12 : <<include>>
+
+' Відношення розширення
+UC9 ..> UC10 : <<extend>>
+UC10 ..> UC11 : <<extend>>
+
+' Зв'язки з зовнішніми системами
+UC9 --> MailSystem
+UC9 --> CalendarSystem
+UC9 --> VersionControlSystem
+
+@enduml
